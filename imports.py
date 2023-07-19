@@ -40,10 +40,11 @@ def UploadCSVData(file_directory,data_points):
             coordinates = np.loadtxt(filename,delimiter=",",skiprows=1,usecols=(0,1,3))
             file_paths.remove(filename)
             count=count-1
+            i=0
             break
     
-    for b in range(count):
-        filename=file_paths[b]
+    for i in range(count):
+        filename=file_paths[i]
         tag=int(filename[-10:].translate({ord(i): '' for i in 'Points.csv\\'}))
         data[:,tag] = np.loadtxt(filename,delimiter=",",skiprows=250,usecols=(1),max_rows=2300)
         
