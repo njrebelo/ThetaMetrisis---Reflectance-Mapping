@@ -36,12 +36,7 @@ def UploadCSVData(file_directory,data_points):
     
     for i in range(count):
         filename=file_paths[i]
-        if "error" in filename:
-            coordinates = np.loadtxt(filename,delimiter=",",skiprows=0,usecols=(0,1,2))
-            file_paths.remove(filename)
-            count=count-1
-            break
-        elif "coordinates" in filename and "error" not in filename:
+        if "coordinates" in filename:
             coordinates = np.loadtxt(filename,delimiter=",",skiprows=1,usecols=(0,1,3))
             file_paths.remove(filename)
             count=count-1
