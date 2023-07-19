@@ -59,7 +59,7 @@ def get_files(dir_path):
             file_paths.append(filepath) 
     return count,file_paths
 
-def UploadCSVData(file_directory,num_data_points,min_wav,max_wav):
+def UploadCSVData(file_directory,min_wav,max_wav):
     """
     It will uplad all the data from the tool.
     
@@ -91,8 +91,6 @@ def UploadCSVData(file_directory,num_data_points,min_wav,max_wav):
     min_indx=find_in_array(wavelengths, min_wav)
     max_indx=find_in_array(wavelengths, max_wav)
     
-    data = np.empty((max_indx,num_data_points))
-    
     wavelengths=wavelengths[min_indx:max_indx:1]
     
     #Loop goes through the files to find the coordinates file, read, and exclude it
@@ -103,7 +101,11 @@ def UploadCSVData(file_directory,num_data_points,min_wav,max_wav):
             file_paths.remove(filename)
             count=count-1
             i=0
+            num_data_points=int(filename[-25:].translate({ord(i): '' for i in 'coordinatesPoints.csv\\'}))
             break
+        
+    data = np.empty((max_indx,num_data_points))
+    
     #Loop goes trhough the files in the folder to take data from each CVS and put it into one array
     for i in range(count):
         filename=file_paths[i]
