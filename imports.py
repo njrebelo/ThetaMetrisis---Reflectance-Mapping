@@ -27,12 +27,20 @@ def get_files(dir_path):
             file_paths.append(filepath) 
     return count,file_paths
 
-def UploadCSVData(file_directory,data_points):
+def UploadCSVData(file_directory,data_points,min_wav,max_wav):
     count,file_paths = get_files(file_directory)
     
-    wavelengths = np.loadtxt(file_directory+"\\0.csv",delimiter=",",skiprows=250,usecols=0,max_rows=2300)
-    length=wavelengths.shape[0]
-    data = np.empty((length,data_points))
+    wavelengths = np.loadtxt(file_directory+"\\0.csv",delimiter=",",skiprows=1,usecols=0)
+    
+    min_indx=find_in_array(wavelengths, min_wav)
+    max_indx=find_in_array(wavelengths, max_wav)
+    
+    data = np.empty((max_indx,data_points))
+    
+    min_indx=find_in_array(wavelengths, min_wav)
+    max_indx=find_in_array(wavelengths, max_wav)
+    
+    wavelengths=wavelengths[min_indx:max_indx:1]
     
     for i in range(count):
         filename=file_paths[i]
@@ -46,7 +54,7 @@ def UploadCSVData(file_directory,data_points):
     for i in range(count):
         filename=file_paths[i]
         tag=int(filename[-10:].translate({ord(i): '' for i in 'Points.csv\\'}))
-        data[:,tag] = np.loadtxt(filename,delimiter=",",skiprows=250,usecols=(1),max_rows=2300)
+        data[:,tag] = np.loadtxt(filename,delimiter=",",skiprows=min_indx,usecols=(1),max_rows=max_indx)
         
     index=coordinates.shape[0]
     remove=[]

@@ -3,7 +3,7 @@ from imports import *
 file_directory="C:\\Users\\rebelo\\Desktop\\DBR Reflectance Uniformity\\Run\\30062023_150Points"
 data_points=150
 detail=1 #it can be either 1 or 0, it changes the detail of the heat map
-data,coordinates,wavelengths=UploadCSVData(file_directory,data_points)
+data,coordinates,wavelengths=UploadCSVData(file_directory,data_points,300,700)
 
 #What is the center of the stop band
 smoothness=50#minimum value is 60
