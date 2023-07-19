@@ -132,7 +132,7 @@ def FindCenter(data,wavelengths,smoothness):
     """
     
 
-    Parameters
+    Finds the center of the stop band. Only works on DBR Strcutures
     ----------
     smoothness : Int
         Size of the kernel for the rolling average (it should not be more than 250)
@@ -175,6 +175,24 @@ def FindCenter(data,wavelengths,smoothness):
     return wavelength_center
 
 def FindMaximum(data,wavelengths,smoothness):
+    """
+    
+
+    Finds the wavelength for each the reflectance is maximum at a given location
+    ----------
+    smoothness : Int
+        Size of the kernel for the rolling average (it should not be more than 250)
+    data : array
+        Should come from UploadCSVData() 
+    wavelengths : array
+        Should come from UploadCSVData() 
+
+    Returns
+    -------
+    wavelength_max : array
+        Wavelength for each the reflectance is maximum at a given location
+
+    """
     index=data.shape[1]
 
     wavelength_max=np.empty(index)
@@ -194,6 +212,26 @@ def FindMaximum(data,wavelengths,smoothness):
 
 
 def FindMaxReflectance(data,wavelengths,smoothness,wavelength):
+    """
+    
+
+    For each location determines the maximum reflectance for a choosen wavelength and normalizes it
+    ----------
+    smoothness : Int
+        Size of the kernel for the rolling average (it should not be more than 250)
+    data : array
+        Should come from UploadCSVData() 
+    wavelengths : array
+        Should come from UploadCSVData() 
+    wavelength : Int
+        The wavelength reflectance that is analyzed
+
+    Returns
+    -------
+    normalized_reflectance : array
+        Normalized reflectance for the given wavelength
+
+    """
     index=data.shape[1]
 
     reflectance=np.empty(index)
